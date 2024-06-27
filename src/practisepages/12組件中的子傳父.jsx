@@ -14,6 +14,7 @@ function Son ({onGetSonMsg}) {
 }
 
 
+
 function ComponentPassingFromChildToParent() {
     const [msg,setMsg] = useState('')
     const getMsg = (msg) => {

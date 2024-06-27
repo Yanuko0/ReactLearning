@@ -1,9 +1,10 @@
 /* eslint-disable no-undef */
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import _, { uniqueId } from 'lodash'
 import classNames from 'classnames'
 import { v4 as uuidv4 } from 'uuid'
 import dayjs from 'dayjs'
+import axios from 'axios'
 
 export default function PractiseBilibiliComment() {
 
@@ -63,6 +64,19 @@ export default function PractiseBilibiliComment() {
   // const [commentList, setCommentList] = useState(list)
   //改默認排序
   const [commentList, setCommentList] = useState(_.orderBy(list, "like", 'desc'))
+
+  //利用後端返回的值
+  // const [commentList, setCommentList] = useState([])
+
+  // useEffect(()=>{
+  //   //請求數據
+  //   async function getList(){
+  //     //axios請求
+  //     const res = await axios.get(`http://localhost:3004/list`)
+  //     setCommentList(res.data)
+  //   }
+  //   getList()
+  // },[])
 
   //實現評論刪除
   // 1.需求只有自己的評論才顯示刪除按鈕
@@ -156,6 +170,63 @@ export default function PractiseBilibiliComment() {
   // 2.重新聚焦 拿到input dom元素調用focus方法
   
 
+  // 20繼續修改評論案例
+  // 1.使用請求接口得方式獲取評論列表並渲染
+  // 2.使用自定義hook函數封裝數據請求的邏輯
+  // 3.把評論中的每一項抽象成一格獨立的組件實現渲染
+
+
+  // 1.使用json-server工具模擬接口服務,通過axios發送接口請求
+  // 2.使用useEffect調用接口獲取數據
+
+  // 找到package.json
+  // "scripts": {
+  //  添加
+  //   "serve": "json-serve db.json --port 3004"
+
+  // },
+
+  // 將評論列表封裝成組件
+function Item({item,onDel}){
+  return(
+    <div className='reply-ltem'>
+          {/* 頭像 */}
+          <div className='root-reply-avatar'>
+            <div className='bili-avatar'>
+              <img className='bili-avatar-img' width="50px"
+                src={item.user.avater} alt="" />
+            </div>
+          </div>
+          
+          <div className='content-wrap'>
+            {/* 用戶名 */}
+            <div className='user-info'>
+              <div className='user-name'>{item.user.uname}</div>
+            </div>
+            {/* 評論內容 */}
+            <div className='root-reply'>
+              <span className='reply-content'>{item.content}</span>
+              <div className='reply-info'>
+                {/* 評論時間 */}
+                <span className='reply-time'>{item.ctime}</span>
+                {/* 評論數量 */}
+                <span className='reply-time'>點讚數:{item.like}</span>
+                {/* 條件:user.id === item.user.id 如果相等才顯示刪除 */}
+                {user.uid === item.user.uid &&
+                  <span className='delete-btn' 
+                  // onClick={() => handleDel(item.rpid)}
+                  onClick={() => onDel(item.rpid)}
+                  >
+                    刪除
+                  </span>}
+              </div>
+            </div>
+          </div>
+        </div>
+  )
+}
+
+
   return (
     <div>
       {/* 導航tab */}
@@ -201,40 +272,8 @@ export default function PractiseBilibiliComment() {
           </div>
       </div>
       {/* 評論列表 */}
-      {commentList.map(item => (
-        <div key={item.rpid} className='reply-ltem'>
-          {/* 頭像 */}
-          <div className='root-reply-avatar'>
-            <div className='bili-avatar'>
-              <img className='bili-avatar-img' width="50px"
-                src={item.user.avater} alt="" />
-            </div>
-          </div>
-          
-          <div className='content-wrap'>
-            {/* 用戶名 */}
-            <div className='user-info'>
-              <div className='user-name'>{item.user.uname}</div>
-            </div>
-            {/* 評論內容 */}
-            <div className='root-reply'>
-              <span className='reply-content'>{item.content}</span>
-              <div className='reply-info'>
-                {/* 評論時間 */}
-                <span className='reply-time'>{item.ctime}</span>
-                {/* 評論數量 */}
-                <span className='reply-time'>點讚數:{item.like}</span>
-                {/* 條件:user.id === item.user.id 如果相等才顯示刪除 */}
-                {user.uid === item.user.uid &&
-                  <span className='delete-btn' onClick={() => handleDel(item.rpid)}>
-                    刪除
-                  </span>}
-              </div>
-            </div>
-          </div>
-        </div>
-
-      ))}
+      {commentList.map(item => 
+      <Item key={item.id} item={item} onDel={handleDel}/>)}
       <div></div>
     </div>
   )

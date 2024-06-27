@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <button id="decrement">-</button>
+    <span id="count">0</span>
+    <button id="increment">+</button>
+
+    <script src="https://unpkg.com/redux@latest/dist/redux.min.js"></script>
+    <script>
+
+        // 使用步驟
+        // 1.定義一個reducer函數(根據當前想要做的修改返回一個新的狀態)
+        // 作用:根據不同的action對象,返回不同的新的state
+        // state:管理數據初始狀態
+        // action:對象 type 標記當前想要做什麼樣的修改
+        function reducer(state = { count: 0 }, action) {
+            //數據不可變:基於原始狀態生成一個新的狀態
+            if (action.type === "INCREMENT") {
+                return { count: state.count + 1 }
+            } if (action.type === "DECREMENT") {
+                return { count: state.count - 1 }
+            }
+            return state
+        }
+
+        // 2.使用createStore方法傳入reducer函數 生成一個store實例對項
+        const store = Redux.createStore(reducer)
+
+        // 3.使用store實例的subscribe方法 訂閱數據的變化(一但數據變化,可得到通知)
+        // 回調函數可以在每次state發生變化時自動執行
+        store.subscribe(() => {
+            console.log('state變化了' , store.getState())
+            document.getElementById('count').innerText = store.getState().count
+        })
+
+        // 4.使用store實例的dispatch方法提交action對項 觸發數據變化(告訴reducer妳想怎麼改數據)
+
+        const inBtn = document.getElementById('increment')
+        inBtn.addEventListener('click', () => {
+            //增加
+            store.dispatch({
+                type:'INCREMENT'
+            })
+        })
+
+        const dBtn = document.getElementById('decrement')
+        dBtn.addEventListener('click', () => {
+            //減少
+            store.dispatch({
+                type:'DECREMENT'
+            })
+        })
+
+        // 5.使用store實例的 getState方法 獲取最新的狀態數據更新到視圖中 
+
+
+    </script>
+
+
+</body>
+
+</html>

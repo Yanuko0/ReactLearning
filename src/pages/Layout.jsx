@@ -15,8 +15,13 @@ import ComponentPassingFromChildToParent from "../practisepages/12組件中的�
 import ComponentPassingSiblingComponents from "../practisepages/13組件中的兄弟組件互傳"
 import UseConText from "../practisepages/14Context跨層級組件通信"
 import HookUseEffect from "../practisepages/15HookUseEffect"
-
-
+import HookUseEffectDependencies from "../practisepages/16UseEffect依賴項"
+import HookUseEffectClearSideEffects from "../practisepages/17UseEffect清除副作用"
+import HustomizeHook from "../practisepages/18自定義hook實現"
+import Hookrule from '../practisepages/19ReactHook使用規則';
+import HookuseXxxAxios from "../practisepages/20自定義函數封裝數據請求"
+import LeadingRedux from "../practisepages/21Redux學習"
+import ReduxCount from "../practisepages/22Redux實現Count"
 
 export default function Layout() {
   return (
@@ -38,7 +43,13 @@ export default function Layout() {
         <Route path='/13組件中的兄弟組件互傳' element={<ComponentPassingSiblingComponents/>}/>
         <Route path='/14Context跨層級組件通信' element={<UseConText/>}/>
         <Route path='/15HookUseEffect' element={<HookUseEffect/>}/>
-       
+        <Route path='/16UseEffect依賴項' element={<HookUseEffectDependencies/>}/>
+        <Route path="/17UseEffect清除副作用" element={<HookUseEffectClearSideEffects/>}/>
+        <Route path="/18自定義hook實現" element={<HustomizeHook/>}/>
+        <Route path="/19ReactHook使用規則" element={<Hookrule/>}/>
+        <Route path="/20自定義函數封裝數據請求" element={<HookuseXxxAxios/>}/>
+        <Route path="/21Redux學習" element={<LeadingRedux/>}/>
+        <Route path="/22Redux實現Count" element={<ReduxCount/>}/>
       </Routes>
       </div>
     </>
