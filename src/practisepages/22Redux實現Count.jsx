@@ -1,6 +1,8 @@
 /* eslint-disable no-lone-blocks */
 import React from 'react'
-
+import { useDispatch, useSelector } from 'react-redux';
+// 導入actionCreater
+import {inscrement, decrement} from "../store/modules/counterStore"
 
 // Redux store配置                             React組件
 //
@@ -33,10 +35,26 @@ import React from 'react'
 
 // 用鉤子函數useSelector 把store中的數據映射到組件中
 
+// React組件中修改store中數據
+// 要使用useDispatch 他的作用是生成提交action對象的dispatch函數
+
 export default function ReduxCount() {
+    const {count} = useSelector(state => state.counter)
+    const dispatch = useDispatch()
   return (
     <div>
-      
+      <button onClick={() => dispatch(decrement())}>-</button>
+      {count}
+      <button onClick={() => dispatch(inscrement())}>+</button>
     </div>
   )
 }
+
+// 1.組件中使用哪個hook函數獲取store中的數據
+// useSelector
+
+// 2.組件使用哪個hook函數獲取dispatch方法
+// useDispatch
+
+// 3.如何得到要提交的action對象
+// 執行store模塊中倒出的acrionCreater方法

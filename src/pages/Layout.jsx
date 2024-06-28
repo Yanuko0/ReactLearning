@@ -1,5 +1,6 @@
 import React from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+// 第一區
 import PractiseJsx1 from '../practisepages/01JsxMap渲染';
 import PractiseJsx2 from '../practisepages/02Jsx條件渲染';
 import PractiseJsx3 from '../practisepages/03Jsx複雜條件渲染';
@@ -22,12 +23,19 @@ import Hookrule from '../practisepages/19ReactHook使用規則';
 import HookuseXxxAxios from "../practisepages/20自定義函數封裝數據請求"
 import LeadingRedux from "../practisepages/21Redux學習"
 import ReduxCount from "../practisepages/22Redux實現Count"
+import ReduxAction from "../practisepages/23提交action傳參"
+import ReduxAsynchronous from "../practisepages/24異步操作"
+import ReduxDevtools from '../practisepages/25Redux調適devtools';
+
+// 第二區
+import TakeawayCase from "../practusepages2/26美團外賣案例"
 
 export default function Layout() {
   return (
     <>
     <div>
-      <Routes>
+      {/* 第一區 */}
+      {/* <Routes>
         <Route path="/01JsxMap渲染" element={<PractiseJsx1/>}/>
         <Route path='/02Jsx條件渲染' element={<PractiseJsx2/>}/>
         <Route path='/03Jsx複雜條件渲染' element={<PractiseJsx3/>}/>
@@ -50,6 +58,12 @@ export default function Layout() {
         <Route path="/20自定義函數封裝數據請求" element={<HookuseXxxAxios/>}/>
         <Route path="/21Redux學習" element={<LeadingRedux/>}/>
         <Route path="/22Redux實現Count" element={<ReduxCount/>}/>
+        <Route path="/23提交action傳參" element={<ReduxAction/>}/>
+        <Route path="/24異步操作" element={<ReduxAsynchronous/>}/>
+        <Route path='/25Redux調適devtools' element={<ReduxDevtools/>}></Route>
+      </Routes> */}
+      <Routes>
+      <Route path="/26美團外賣案例" element={<TakeawayCase/>}/>
       </Routes>
       </div>
     </>
