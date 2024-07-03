@@ -29,6 +29,10 @@ import ReduxDevtools from '../practisepages/25Redux調適devtools';
 
 // 第二區
 import TakeawayCase from "../practusepages2/26美團外賣案例"
+import ReactRouter from '../practusepages2/27ReactRouter快速開始';
+import RouterLink from '../practusepages2/28ReactRouter跳轉';
+import RouterLinkUpValue from '../practusepages2/29路由導航傳參';
+import RouterConfiguration from '../practusepages2/30嵌套路由配置';
 
 export default function Layout() {
   return (
@@ -64,6 +68,10 @@ export default function Layout() {
       </Routes> */}
       <Routes>
       <Route path="/26美團外賣案例" element={<TakeawayCase/>}/>
+      <Route path="/27ReactRouter快速開始" element={<ReactRouter/>}/>
+      <Route path="/28ReactRouter跳轉" element={<RouterLink/>}/>
+      <Route path="/29路由導航傳參" element={<RouterLinkUpValue/>}/>
+      <Route path='/30嵌套路由配置' element={<RouterConfiguration/>}> </Route>
       </Routes>
       </div>
     </>

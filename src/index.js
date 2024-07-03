@@ -5,13 +5,26 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import store from './store';
 import { Provider } from 'react-redux';
+import { createBrowserRouter ,RouterProvider} from 'react-router-dom';
+
+import router from './router';
+// 1.創建router實例對象並且配置路由對應關係
+// const router = createBrowserRouter([{
+//   path:"/login",
+//   element:<div>我是登錄</div>
+// },{
+//   path:"/article",
+//   element:<div>我是文章頁</div>
+// }
+// ])
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <Provider store={store}>
-      <App />
-    </Provider>
+    {/* <Provider store={store}> */}
+      {/* <App /> */}
+      <RouterProvider router={router}></RouterProvider>
+    {/* </Provider> */}
   </React.StrictMode>
 );
 
