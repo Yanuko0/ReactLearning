@@ -1,0 +1,351 @@
+// 1.變數
+$font-stack: Helvetica, sans-serif;
+$primary-color: #333;
+
+body{
+    font: 100% $font-stack;
+    color: $primary-color;
+}
+
+// 2.嵌套1
+nav{
+    ul{
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+
+    li{
+        display: inline-block;
+    }
+
+    a{
+        display: block;
+        padding: 6px 12px;
+        text-decoration: none;
+    }
+}
+
+// a{
+//     b{
+//         c{
+//             background-color: #333;
+//         }
+//     }
+// }
+// // 等於
+// a b c{
+//     background-color: #333;
+// }
+
+// 3.嵌套2
+
+nav{
+    ul{
+        margin: 0;
+        padding: 0;
+        list-style: none;
+
+        li{
+            display: inline-block;
+
+            a{
+                display: block;
+                padding: 6px 12px;
+                text-decoration: none;
+            }
+        }
+    }
+}
+
+//4.模塊
+// 1.開一個bass.scss
+// 在其他scss最上面用@use "base";
+// 可以把base的scss跟SassAndScss01.scss合併
+
+// 5.extend繼承
+
+.public{
+    height: 100px;
+    line-height: 100px;
+    font-size: 30px;
+    font-weight: bold;
+    margin-top: 15px;
+    color: #777;
+    text-align: center;
+}
+
+.header{
+    @extend .public;
+    background: #faa;
+}
+.bodyer{
+    @extend .public;
+    background: #afa;
+}
+.footer{
+    @extend .public;
+    background: #aaf;
+}
+
+// css會變成
+// .header , .bodyer ,.footer {public}
+// .header{各別顏色}
+// .bodyer{各別顏色}
+// .footer{各別顏色}
+
+// 6.mixin混合或sass塊
+
+@mixin public{
+    height: 100px;
+    line-height: 100px;
+    font-size: 30px;
+    font-weight: bold;
+    margin-top: 15px;
+    color: #777;
+    text-align: center;
+    }
+
+.main {
+    .header{
+        @include public;
+        background: #faa;
+    }
+    .bodyer{
+        @include public;
+        background: #afa;
+    }
+    .footer{
+        @include public;
+        background: #aaf;
+    }
+        
+}
+
+// css會變成
+// .main .header{public+顏色}
+// .main .bodyer{public+顏色}
+// .main .footer{public+顏色}
+
+// 7.運算符(scss可運算)
+
+// scss
+// article[role="main"]{
+//     float:left;
+//     width: 600px / 960px * 100%
+// }
+
+//css會轉換為
+// article[role="main"]{
+//     float:left;
+//     width: 62.5%;
+// }
+
+// 一、scss語法
+// #{}花括號式
+
+// .btn{
+//     color: #d00;
+//     background: #fff;
+//     border-radius: 4px;
+//     border: 1px solid #000;
+// }
+
+// <button class='btn btn-info'></button>
+// .btn-info{
+//     @extend .btn;
+//     font-size:12px;
+// }
+
+// css會變成
+// .btn , .btn-info{
+//     color: #d00;
+//     background: #fff;
+//     border-radius: 4px;
+//     border: 1px solid #000;
+// }
+
+
+
+// 二、sass語法
+// #縮進式(不用{}也不用;)
+
+// 文件後墬要改sass
+// .btn
+//     color: #d00
+//     background: #fff
+//     border-radius: 4px
+//     border: 1px solid #000
+
+
+// <button class='btn btn-info'></button>
+// .btn-info
+//     @extend .btn
+//     font-size:12px
+//      .btn-warn
+//          color:#f00
+
+// @mixin public
+    // font-size:20px
+
+
+// 語法結構
+// 一.通用聲明
+// 變量聲明:例如 $var: value
+// 流控制規則 例如 @if 和 @each
+// @error @warn @debug 規則
+// 1.變量 2.流程控制 3.輸出語句
+
+// 代碼
+// $name:"user123";
+
+// @debug $name;
+
+// .main{
+//     background: $name;
+// }
+
+// css中會變成
+// .main{
+//     background: "user123";
+// }
+
+// 二、Css語句
+// 風格規劃,如 h1{/*..*/}
+// css規劃 如 @media 和 @font-face
+// Mixin使用 @include
+// 該at-root規則
+// 1.@function 2.@mixin 3.@media 4.@at-root 5.css規則
+
+// 代碼 在sass裡面可以寫css規則
+// .main{
+//     background: $name;
+// }
+
+// 三、頂級聲明(執行流程)
+// 這些語句只能在樣式錶的頂層使用
+// 1.@mixin     --調用前聲明 
+// 2.@use       --在最頂部
+// 3.@function  --調用前聲明 
+// 沒有在頂層會報錯
+
+// @use "base";  --只能在最上面
+
+// body{
+    // background: base.$name;
+    // @use "base"; --at-rule
+// }
+
+// @use "base";  --at-rule
+
+// @function show(){
+//     @return "user2"
+// }
+// body{
+//     background: show();
+// }
+
+// 四、文字
+// 最簡單的表達式僅表示靜態值
+// 1.數字 2.字符串 3.顏色 4.布爾 5.列表 6.集合(映射)
+
+// $users:["user1","user2","user3"];
+
+// @each $user in $users{
+//     body-#(user){
+//         background: $user;
+//     }
+// }
+
+
+// 五、運算符
+// 1.等於 2.數學 3.比較 4.邏輯 5.字符串連結 6.單元(提高優先級)
+
+// $score:75;
+// @if $score >=60{
+//     body{
+//         background: #777;
+//     }
+// }
+
+
+// 六、其他表達式
+// 1.var 2.nth 3.url 4.父選擇器& 5.!default
+
+// a{
+//     color: #ddd;
+//     &:hover{
+//         color: #777;
+//     }
+// }
+
+// css會變成 a:hover
+
+
+// 七、註釋
+// 1.註釋類型 (會出現在css文件)
+
+/*
+    1.a連結樣式
+    2.a:hover樣式
+*/
+
+// a{
+//     color: #ddd;
+//     &:hover{
+//         color: #777;
+//     }
+// }
+// 2.//code (不會出現在css文件)
+// 1.a連結樣式2.a:hover樣式
+// a{
+//     color: #ddd;
+//     &:hover{
+//         color: #777;
+//     }
+// }
+// 3.在壓縮板默認都不出現
+// 4.如果非要出現可以
+// /*! code  */
+
+
+// 八、特殊函數
+// 1.url() 2.calc() 3.min() 4.max()
+// #sass中的url可解析參數中的變量
+
+// $roboto-font-path:"../fonts/roboto"
+
+// 代碼1(url)
+// @font-face{
+//     src: url($roboto-font-path + "/Roboto-Light.woff2") format('woff2');
+//     font-family: "Roboto";
+//     font-weight:300;
+// }
+
+
+// 代碼2 sass中無法解析直接交給css(url)
+// @font-face{
+//     src: url(#{$roboto-font-path}/Roboto-Light.woff2) format('woff2');
+//     font-family: "Roboto";
+//     font-weight:300;
+// }
+
+// 代碼3(calc)
+// #sass不能直接把calc運算過程給css, 因為css搞不定
+
+// .logo{
+//     $width:800px;
+//     width: $width;
+//     position: absolute;
+//     left: calc(50% -#{$width/2});
+//     top: 0;
+// }
+
+// 代碼4(max/min)
+// .logo{
+//     $width:800px;
+//     $height:300px;
+
+//     width: min($width,$height);
+//     height: max($width,$height);
+// }

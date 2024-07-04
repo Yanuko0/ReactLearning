@@ -1,0 +1,35 @@
+@use "base";
+
+// $name:'user1';
+
+// @debug $name;
+
+@mixin public{
+    height: 100px;
+    line-height: 100px;
+    font-size: 30px;
+    font-weight: bold;
+    margin-top: 15px;
+    color: #777;
+    text-align: center;
+    }
+
+.main {
+    .header{
+        @include public;
+        background: #faa;
+    }
+    .bodyer{
+        @include public;
+        background: #afa;
+    }
+    .footer{
+        @include public;
+        background: #aaf;
+    }
+        
+}
+
+.header{
+    background-color: #faa;
+}

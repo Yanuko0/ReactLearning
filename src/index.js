@@ -21,10 +21,10 @@ import router from './router';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    {/* <Provider store={store}> */}
-      {/* <App /> */}
-      <RouterProvider router={router}></RouterProvider>
-    {/* </Provider> */}
+    <Provider store={store}>
+      <App />
+      {/* <RouterProvider router={router}></RouterProvider> */}
+    </Provider>
   </React.StrictMode>
 );
 

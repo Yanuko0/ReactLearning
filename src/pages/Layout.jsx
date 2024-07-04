@@ -34,6 +34,10 @@ import RouterLink from '../practusepages2/28ReactRouter跳轉';
 import RouterLinkUpValue from '../practusepages2/29路由導航傳參';
 import RouterConfiguration from '../practusepages2/30嵌套路由配置';
 
+// Scss/Sass學習
+import SassAndScss01 from '../SassAndScsspractusepages/31Sass和Scss學習01';
+import SassAndScss02 from '../SassAndScsspractusepages/32Sass和Scss高級篇';
+
 export default function Layout() {
   return (
     <>
@@ -72,6 +76,8 @@ export default function Layout() {
       <Route path="/28ReactRouter跳轉" element={<RouterLink/>}/>
       <Route path="/29路由導航傳參" element={<RouterLinkUpValue/>}/>
       <Route path='/30嵌套路由配置' element={<RouterConfiguration/>}> </Route>
+      <Route path='/31Sass和Scss學習01' element={<SassAndScss01/>}> </Route>
+      <Route path='/32Sass和Scss高級篇' element={<SassAndScss02/>}> </Route>
       </Routes>
       </div>
     </>

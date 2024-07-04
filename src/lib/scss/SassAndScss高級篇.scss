@@ -1,0 +1,190 @@
+// 一、if語句
+// $a:true;
+
+// @if $a{
+//     @debug "hello world";
+// }
+
+// 二、if..else語法
+
+// $score:75;
+
+// @if $score >= 60{
+//     @debug "A level";
+// }@else{
+//     @debug "B level"
+// }
+
+// 三、if..else  if..else語句
+
+// $score:75;
+
+// @if $score >= 90{
+//     @debug "A level";
+// }@else if $score>=60{
+//     @debug "B level";
+// }@else{
+//     @debug "C level";
+// }
+
+// 四、Sass官方實例:if
+
+// @mixin avatar($size , $circle:false){
+//     width: $size;
+//     height: $size;
+
+//     @if $circle {
+//         border-radius: ($size/2);
+//     }
+// }
+
+// .square-av {
+//     @include avatar(100px, $circle:false);
+// }
+// .circle-av {
+//     @include avatar(100px, $circle:true);
+// }
+
+// 五、Sass官方實例:if..else
+
+// $lingt-background: #f2ece4;
+// $light-text: #036;
+// $dark-background: #6b717f;
+// $dark-text: #d2e1dd;
+
+// @mixin theme-colors($light-theme:true){
+//     @if $light-theme{
+//         background-color: $light-background;
+//         color: $light-text;
+//     }@else{
+//         background-color: $drak-background;
+//         color: $dark-text;
+//     }
+// }
+
+// .banner{
+//     @include theme-colors($light-theme:true);
+//     body.dark &{
+//         @include theme-colors($light-theme:false);
+//     }
+// }
+
+// 六、Sass官方實例:if..else if..else
+
+// @mixin triangle($size, $color, $direction){
+//     height:0;
+//     width: 0;
+
+//     border-color: thransparent;
+//     border-style: solid;
+//     border-width: $size / 2;
+
+//     @if $direction == up{
+//         border-bottom-color: $color;
+//     }@else if $direction == right{
+//         border-left-color: $color;
+//     }@else if $direction == down{
+//         border-top-color: $color;
+//     }@else if $direction == left{
+//         border-right-color: $color;
+//     }@else{
+//         @error "Unknown direction #{$direction}.";
+//     }
+// }
+// .next{
+//     @include triangle(5px,black ,right )
+// }
+
+// 七、Each語法
+// 1.list遍歷
+//   代碼1
+// $sizes: 40px, 50px, 80px;
+
+// @each $sizes in $sizes{
+//     .img-#{$size}{
+//         font-size: $size;
+//     }
+// }
+// 代碼2
+// $sizes: 40px, 50px, 80px;
+
+// $i:0;
+
+// @each $sizes in $sizes{
+//     $i:$i+1;
+//     .img-#{$i}{
+//         font-size: $size;
+//     }
+// }
+
+// 2.map遍歷
+// $icon: (
+//     "eye": "linux",
+//     "start": "php",
+//     "stop": "sass"
+// );
+
+// @each $k, $v in $icons {
+//     .img-#{$k} {
+//         display: $v;
+//     }
+// }
+
+// 3.destruct解構
+
+//錯誤的解構
+// $sizes:40px,50px,80px;
+// @each $a,$b,$c in $sizes{
+//     @debug $a,$b,$c;
+// }
+//這個會變成每個都給到a ，變成三個而b,c都是null
+
+// 正確的方式
+// $sizes:40px,50px,80px;
+// @each $ain $sizes{
+//     @debug $a;
+// }
+
+// $sizes:"eye" "linux" 40px,
+//        "start" "php" 50px,
+//        "stop" "python" 80px;
+// @each $a,$b,$c in $sizes{
+//     @debug $a,$b,$c;
+// }
+
+// 代碼2 #多維列表
+// $sizes:(
+//        ("eye","linux","40px"),
+//        ("start","php","50px"),
+//        ("stop","python","80px")
+// );
+
+// @each $a,$b,$c in $sizes{
+//     @debug $a,$b,$c;
+// }
+
+
+// 八、For語法
+  // 1.from..throught語法 1~3包含3
+//   @for $i from 1 through 3{
+//     // @debug $i;
+//     .img-#{$i}{
+//         background: ccc;
+//     }
+//   }
+  // 2.from..to語法  1~3不包含3
+//     @for $i from 1 to 3{
+//     // @debug $i;
+//     .img-#{$i}{
+//         background: ccc;
+//     }
+//   }
+
+// $base-color: #036;
+
+// @for $i from i through 3{
+//     ul:nth-child(3n+ #{$i}){
+//         background-color: lighten($base-color,$i * 5%);
+//     }
+// }
+
