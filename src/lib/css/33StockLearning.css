@@ -1,0 +1,20 @@
+.StockLearningBox{
+    display: flex;
+    flex-direction: column;
+}
+
+.StockLearningBox div{
+    display: flex;
+    flex-direction: row;
+}
+
+.StockLearningBox div div input{
+    width: 80px;
+}
+.StockLearningBox .third div div input{
+    width: 80px;
+}
+.StockLearningBox .third{
+    display: flex;
+    flex-direction: column;
+}

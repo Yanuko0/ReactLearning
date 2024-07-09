@@ -37,6 +37,10 @@ import RouterConfiguration from '../practusepages2/30嵌套路由配置';
 // Scss/Sass學習
 import SassAndScss01 from '../SassAndScsspractusepages/31Sass和Scss學習01';
 import SassAndScss02 from '../SassAndScsspractusepages/32Sass和Scss高級篇';
+import StockLearning from '../StockLearning/33StockLearning';
+import DefaultSecondaryRoute from '../practusepages2/34默認二級路由&404路由配置';
+import TwoRoutingModes from '../practusepages2/35兩種路由模式';
+import AccountingBook from '../practusepages2/36記帳本';
 
 export default function Layout() {
   return (
@@ -78,6 +82,11 @@ export default function Layout() {
       <Route path='/30嵌套路由配置' element={<RouterConfiguration/>}> </Route>
       <Route path='/31Sass和Scss學習01' element={<SassAndScss01/>}> </Route>
       <Route path='/32Sass和Scss高級篇' element={<SassAndScss02/>}> </Route>
+      {/* 未完成 */}
+      <Route path='/33StockLearning' element={<StockLearning/>}> </Route>
+      <Route path='/34默認二級路由&404路由配置' element={<DefaultSecondaryRoute/>}> </Route>
+      <Route path='/35兩種路由模式' element={<TwoRoutingModes/>}> </Route>
+      <Route path='/36記帳本' element={<AccountingBook/>}> </Route>
       </Routes>
       </div>
     </>

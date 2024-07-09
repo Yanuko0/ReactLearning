@@ -15,7 +15,7 @@ import "../lib/css/SassAndScss01.css"
 // 151.101.185.194 github.global.ssl.fastly.net
 
 // 一、dart sass安裝
-// npm npm install sass
+// npm install sass
 // 之後到這個資料夾下執行
 // npx sass SassAndScss01.scss output.css
 
