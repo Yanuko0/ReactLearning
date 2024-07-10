@@ -9,6 +9,9 @@ import sum from "@/test"
 import {RouterProvider} from 'react-router-dom'
 import router  from './router';
 
+import { Provider } from 'react-redux'
+import store from './store';
+
 //導入定制組提文件
 import "./theme.css"
 
@@ -18,8 +21,9 @@ root.render(
   // <React.StrictMode>
     
   // {/* </React.StrictMode> */}
+  <Provider store={store}>
   <RouterProvider router={router}/>
-
+  </Provider>
  
 );
 
