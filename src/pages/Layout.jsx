@@ -41,6 +41,10 @@ import StockLearning from '../StockLearning/33StockLearning';
 import DefaultSecondaryRoute from '../practusepages2/34默認二級路由&404路由配置';
 import TwoRoutingModes from '../practusepages2/35兩種路由模式';
 import AccountingBook from '../practusepages2/36記帳本';
+import ConfigurationPath from '../practusepages2/37配置別名路徑';
+import Mock from '../practusepages2/38數據Mock實現';
+import RoutingDesign from '../practusepages2/39整體路由設計';
+import ManagementAccountList from '../practusepages2/40Redux管理帳目列表.JSX';
 
 export default function Layout() {
   return (
@@ -87,6 +91,10 @@ export default function Layout() {
       <Route path='/34默認二級路由&404路由配置' element={<DefaultSecondaryRoute/>}> </Route>
       <Route path='/35兩種路由模式' element={<TwoRoutingModes/>}> </Route>
       <Route path='/36記帳本' element={<AccountingBook/>}> </Route>
+      <Route path='/37配置別名路徑' element={<ConfigurationPath/>}> </Route>
+      <Route path='/38數據Mock實現' element={<Mock/>}> </Route>
+      <Route path='/39整體路由設計' element={<RoutingDesign/>}> </Route>
+      <Route path='/40Redux管理帳目列表' element={<ManagementAccountList/>}> </Route>
       </Routes>
       </div>
     </>
