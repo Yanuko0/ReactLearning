@@ -9,6 +9,9 @@ import sum from "@/test"
 import {RouterProvider} from 'react-router-dom'
 import router  from './router';
 
+//導入定制組提文件
+import "./theme.css"
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   // 嚴格模式的節點,造成某些代碼執行兩次
