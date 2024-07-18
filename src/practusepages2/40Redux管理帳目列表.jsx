@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
 export default function ManagementAccountList() {
     // 用Redux管理帳目列表
@@ -47,9 +47,40 @@ export default function ManagementAccountList() {
 // 3.按月分組邏輯實現(lodash)
 
 
+// 計算選擇月份的統計數據
+
+// 需求:點擊時間確認按鈕之後,把當月的統計數據計算出來顯示到頁面中
+
+// 1.點擊確認獲取到當前月
+// 2.再按月分組樹據中找到對應的樹組
+// 3.基於數組作計算 useMemo-reduce
+
+
+// 月度初始化時渲染統計數據
+
+// 需求:打開月度帳單時，把當前月份的統計數據渲染到頁面中
+
+// useEffect
+// 已當前時間作為key取帳單數組
+// monthResult自動重新計算
+
+// 單日統計列表實現
+// 需求:把當前月的帳單數據以單日為單位,進行統計顯示
+
+// 1.準備單日帳單統計組件
+// 2.把當前月的數據按日來分組(日期列表和帳單分組數據)
+// 3.遍歷數據給組件傳入日期數據和當日列表數據
+
+// 單日帳單列表顯示
+// 需求:把當日的帳案列表渲染到視圖中
+
+// 1.準備列表模板
+// 2.渲染模板數據
+// 3.視配中文顯示
+
+
   return (
-    <div>
-      
+    <div>   
     </div>
   )
 }

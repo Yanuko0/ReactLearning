@@ -41,6 +41,22 @@ const DailyBill = ({data, billList}) =>{
                     </div>
                 </div>
             </div>
+            {/* 單日列表 */}
+            <div className="billList">
+                {billList.map(item =>{
+                    return(
+                        <div className="bill" key={item.id}>
+                            <div className="detail">
+                                <div className="billType">{item.useFor}</div>
+                                <div className={classNames('money',item.type)}>
+                                    {item.money.toFixed(2)}
+                                </div>
+                            </div>
+                        </div>
+                    )
+                })}
+
+            </div>
         </div>
     )
 }
