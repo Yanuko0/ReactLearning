@@ -1,9 +1,9 @@
 import classNames from "classnames";
 import './index.scss'
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { billTypeToName } from "@/contants/index";
 
-const DailyBill = ({data, billList}) =>{
+const DailyBill = ({date, billList}) =>{
 
     const dayResult = useMemo(()=>{
         //支出   /收入  /結餘
@@ -16,16 +16,19 @@ const DailyBill = ({data, billList}) =>{
             income,
             total:pay + income
         }
-
-
     },[billList])
+
+    //控制展開收起
+    const [visible, setVisible] = useState(false)
 
     return(
         <div className={classNames('dailyBill')}>
             <div className="header">
                 <div className="dateIcon">
-                    <span className="date">{data}</span>
-                    <span className={classNames('arrow')}></span>
+                    <span className="date">{date}</span>
+                    {/* expand 如果有這個類名 展開的箭頭朝上 */}
+                    <span className={classNames('arrow', visible && 'expand')}
+                    onClick={() => setVisible(!visible)}></span>
                 </div>
                 <div className="oneLineOverview">
                     <div className="pay">
@@ -43,7 +46,7 @@ const DailyBill = ({data, billList}) =>{
                 </div>
             </div>
             {/* 單日列表 */}
-            <div className="billList">
+            <div className="billList" style={{display:visible?'block':'none'}}>
                 {billList.map(item =>{
                     return(
                         <div className="bill" key={item.id}>
