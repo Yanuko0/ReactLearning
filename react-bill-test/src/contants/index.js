@@ -37,5 +37,40 @@ export const billListData = {
                 {type:'dessert', name:'甜品零食'},
             ],
         },
+        {
+            type:'other',
+            name:'其他支出',
+            list:[
+                {type:'community', name:'社區繳費'},
+            ],
+        },
+    ],
+    income:[
+        {
+            type:'professional',
+            name:'其它支出',
+            list:[
+                { type:'salary', name:'工資' },
+                { type:'overtimepay', name:'加班'},
+                { type:'bonus', name:'獎金'},
+            ],
+        },
+        {
+            type:'other',
+            name:'其它收入',
+            list:[
+                { type:'financial', name:'理財收入' },
+                { type:'cashgift', name:'禮金收入'},
+            ],
+        },
     ]
 }
+
+export const billTypeToName = Object.keys(billListData).reduce((prev, key) => {
+    billListData[key].forEach(bill =>{
+        bill.list.forEach(item => {
+            prev[item.type] = item.name
+        })
+    })
+    return prev
+},{})
