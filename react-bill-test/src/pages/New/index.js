@@ -7,6 +7,7 @@ import './index.scss'
 import { useState } from "react"
 import { useDispatch } from "react-redux"
 import { addBillList } from "@/store/modules/billStore"
+import dayjs from "dayjs"
 
 
 
@@ -31,11 +32,22 @@ const New = () =>{
         const data = {
             type:billType,
             money:billType ==='pay'? -money : +money,
-            data:new Date(),
+            date:date,
             useFor:useFor,
         }
         console.log(data)
         dispatch(addBillList(data))
+    }
+
+    //存儲選擇的時間
+    const [date, setDate] = useState()
+    //控制時間打開關閉
+    const [dataVisible, setDataVisible] = useState(false)
+    //確認選擇時間
+    const dateConfirm = (value) =>{
+        console.log(value)
+        setDate(value)
+        setDataVisible(false)
     }
 
     return(
@@ -65,11 +77,16 @@ const New = () =>{
                     <div className="kaForm">
                         <div className="date">
                             <Icon type="calenoar" className="icon"/>
-                            <span className="text">{'今天'}</span>
+                            <span className="text" 
+                            onClick={()=>setDataVisible(true)}
+                            >{dayjs(date).format('YYYY-MM-DD')}</span>
+                            {/* 時間選擇器 */}
                             <DatePicker
                                 className="kaDate"
                                 title="記帳日記"
                                 max = {new Date()}
+                                visible={dataVisible}
+                                onConfirm={dateConfirm}
                             />
                         </div>
                         <div className="KaInput">
@@ -95,7 +112,12 @@ const New = () =>{
                             <div className="list">
                                 {item.list.map(item =>{
                                     return(
-                                        <div className={classNames('item','')}
+                                        //selected
+                                        <div className={
+                                        classNames(
+                                            'item',
+                                            useFor === item.type ? 'selected' : ''
+                                        )}
                                         key={item.type}
                                         onClick={()=>setUseFor(item.type)}>
 

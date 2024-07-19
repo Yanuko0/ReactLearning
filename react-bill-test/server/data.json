@@ -41,6 +41,76 @@
       "money": -100,
       "data": "2024-07-19T07:37:34.644Z",
       "useFor": "drinks"
+    },
+    {
+      "id": "5ec7",
+      "type": "pay",
+      "money": -100,
+      "data": "2024-06-15T16:00:00.000Z",
+      "useFor": "food"
+    },
+    {
+      "id": "16e1",
+      "type": "pay",
+      "money": -100,
+      "data": "2024-06-15T16:00:00.000Z",
+      "useFor": "food"
+    },
+    {
+      "id": "1a49",
+      "type": "income",
+      "money": 1000000,
+      "data": "2024-07-17T16:00:00.000Z",
+      "useFor": "salary"
+    },
+    {
+      "id": "cdd2",
+      "type": "pay",
+      "money": -50000,
+      "date": "2024-07-18T16:00:00.000Z",
+      "useFor": "game"
+    },
+    {
+      "id": "b0d4",
+      "type": "income",
+      "money": 6000,
+      "date": "2024-07-17T16:00:00.000Z",
+      "useFor": "overtimepay"
+    },
+    {
+      "id": "e3ca",
+      "type": "income",
+      "money": 10000,
+      "date": "2024-02-29T16:00:00.000Z",
+      "useFor": "salary"
+    },
+    {
+      "id": "5f52",
+      "type": "income",
+      "money": 100,
+      "date": "2024-02-29T16:00:00.000Z",
+      "useFor": "salary"
+    },
+    {
+      "id": "11de",
+      "type": "income",
+      "money": 100100,
+      "date": "2024-02-29T16:00:00.000Z",
+      "useFor": "salary"
+    },
+    {
+      "id": "754d",
+      "type": "income",
+      "money": 1000,
+      "date": "2024-07-15T16:00:00.000Z",
+      "useFor": "overtimepay"
+    },
+    {
+      "id": "a5d8",
+      "type": "income",
+      "money": 10000,
+      "date": "2024-01-14T16:00:00.000Z",
+      "useFor": "bonus"
     }
   ]
 }
