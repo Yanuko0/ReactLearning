@@ -4,10 +4,14 @@ import { Button, DatePicker, Input, NavBar } from "antd-mobile"
 import classNames from "classnames"
 import { useNavigate } from "react-router-dom"
 import './index.scss'
+import { useState } from "react"
 
 
 const New = () =>{
     const navigate = useNavigate()
+
+    //1.準備一個控制收入支出的狀態
+    const [billType, setBillType] = useState('pay') //pay-支出 income-收入
 
     return(
         <div className="keepAccounts">
@@ -19,12 +23,15 @@ const New = () =>{
                 <div className="kaType">
                     <Button
                         shape="rounded"
-                        className={classNames('selected')}>
+                        className={classNames(billType ==='pay'?'selected':'')}
+                        onClick={()=>setBillType('pay')}
+                        >
                             支出
                     </Button>
                     <Button
-                        className={classNames('')}
-                        shape="rounded">
+                        className={classNames(billType === 'income'?'selected':'')}
+                        shape="rounded"
+                        onClick={()=>setBillType('income')}>
                             收入
                     </Button>
                 </div>
@@ -33,9 +40,7 @@ const New = () =>{
                     <div className="kaForm">
                         <div className="date">
                             <Icon type="calenoar" className="icon"/>
-                            <span className="text">
-                                {'今天'}
-                            </span>
+                            <span className="text">{'今天'}</span>
                             <DatePicker
                                 className="kaDate"
                                 title="記帳日記"
@@ -55,7 +60,8 @@ const New = () =>{
              </div>
 
              <div className="KaTypeList">
-                {billListData['pay'].map(item => {
+                {/* 數據區域 */}
+                {billListData[billType].map(item => {
                     return(
                         <div className="kaType" key={item.type}>
                             <div className="title">{item.name}</div>
