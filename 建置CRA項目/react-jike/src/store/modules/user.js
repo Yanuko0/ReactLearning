@@ -7,12 +7,14 @@ const userStore = createSlice({
     name: "user",
     //數據狀態
     initialState:{
-        token: ''
+        token: localStorage.getItem('token_key') || ''
     },
     //同步的修改方法
     reducers:{
         setToken(state, action) {
             state.token = action.payload
+            //localstore存一份
+            localStorage.setItem('token_key', action.payload)
         }
     }
 })
