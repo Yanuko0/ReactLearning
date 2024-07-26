@@ -1,6 +1,7 @@
 // axios的封裝處理
 import axios from "axios";
-import { getToken } from "./token";
+import { getToken, removeToken } from "./token";
+import router from "@/router";
 //1.根域名配置
 //2.超時時間
 //3.請求攔截器 / 響應攔截器
@@ -34,6 +35,14 @@ request.interceptors.response.use((response)=>{
 },(error)=>{
     //2xx範圍內的狀態碼都會觸發該函數
     //對響應錯誤做點什麼
+    //監控401 token失效
+    console.dir(error)
+    if(error.response.status === 401){
+        removeToken()
+        router.navigate('/login')
+        //強制刷新
+        window.location.reload()
+    }
     return Promise.reject(error)
 })
 
