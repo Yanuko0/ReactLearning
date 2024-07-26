@@ -14,34 +14,42 @@
 
 import { Layout, Menu, Popconfirm } from "antd"
 import {
-    HomeQutlined,
+    HomeOutlined,
     DiffOutlined,
-    EditOutLined,
-    LogoutOutLined,
+    EditOutlined,
+    LogoutOutlined,
 } from '@ant-design/icons'
 import './index.scss'
+import { Outlet, useNavigate } from "react-router-dom"
 
 const { Header, Sider} = Layout
 
 const items = [
     {
         label:'首頁',
-        key:"1",
-        // icon: <HomeQutlined/>
+        key:"/",
+        icon: <HomeOutlined/>
     },
     {
         label: '文章管理',
-        key:'2',
+        key:'/article',
         icon: <DiffOutlined/>
     },
     {
         label: '創建文章',
-        key:'3',
-        // icon: <EditOutLined/>
+        key:'/publish',
+        icon: <EditOutlined/>
     }
 ]
 
 const GeekLayout = () =>{
+    const navigate = useNavigate()
+    const onMenuClick = (route) =>{
+        console.log("菜單被點擊了",route)
+        const path = route.key
+        navigate(path)
+
+    }
     return(
         <Layout>
             <Header className="header">
@@ -50,7 +58,7 @@ const GeekLayout = () =>{
                     <span className="user-name">柴柴老師</span>
                     <span className="user-logout">
                         <Popconfirm title='是否確認退出?' okText="退出" cancelText="取消">
-                            {/* <LogoutOutLined />退出 */}
+                            <LogoutOutlined />退出
                         </Popconfirm>
                     </span>
                 </div>
@@ -61,11 +69,13 @@ const GeekLayout = () =>{
                     mode="inline"
                     theme="dark"
                     defaultSelectedKeys={['1']}
+                    onClick={onMenuClick}
                     items={items}
                     style={{ height: '100%', borderRight: 0}}></Menu>
                 </Sider>
                 <Layout className="layout-content" style={{padding:20}}>
-                    內容
+                    {/* 二級路由出口 */}
+                    <Outlet/>
                 </Layout>
             </Layout>
         </Layout>
