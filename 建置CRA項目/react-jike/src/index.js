@@ -11,11 +11,12 @@ import "normalize.css"
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
+  // 嚴格模式會渲染兩次
+  // <React.StrictMode>
     <Provider store={store}>
        <RouterProvider router={router}/>
     </Provider>
-  </React.StrictMode>
+  // </React.StrictMode>
 );
 
 

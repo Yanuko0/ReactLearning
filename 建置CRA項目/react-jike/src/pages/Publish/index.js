@@ -13,6 +13,11 @@ import { PlusOutlined } from "@ant-design/icons"
 import { Link } from 'react-router-dom'
 import './index.scss'
 
+import ReactQuill from "react-quill"
+import 'react-quill/dist/quill.snow.css'
+
+const { Option } = Select
+
 const Publish = () => {
     return (
         <div className='publish'>
@@ -43,7 +48,7 @@ const Publish = () => {
                         rules={[{ required: true, message: '請選擇文章頻道' }]}
                     >
                         <Select placeholder='請選擇文章頻道' style={{ width: 400 }}>
-                            <option value={0}>推薦</option>
+                            <Option value={0}>推薦</Option>
                         </Select>
                     </Form.Item>
                     <Form.Item
@@ -52,6 +57,11 @@ const Publish = () => {
                         rules={[{ required: true, message: '請輸入文章內容' }]}
                     >
                         {/* 富文本編輯器 */}
+                        <ReactQuill
+                            className='publish-quill'
+                            theme='snow'
+                            placeholder='請輸入文章內容'
+                        />
                     </Form.Item>
                     <Form.Item wrapperCol={{ offset: 4 }}>
                         <Space>
