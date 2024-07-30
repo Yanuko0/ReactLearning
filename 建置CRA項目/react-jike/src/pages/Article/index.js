@@ -19,6 +19,11 @@ const Article = () => {
     const { channelList } = useChannel()
 
     //準備列數據
+    //定義狀態枚舉
+    const status = {
+        1: <Tag color='warning'>待審核</Tag>,
+        2: <Tag color='success'>審核通過</Tag>
+    }
     const columns =[
         {
             title: '封面',
@@ -36,7 +41,12 @@ const Article = () => {
         {
             title: '狀態',
             dataIndex: 'status',
-            render: data => <Tag color='green'>審核通過</Tag>
+            // render: data => <Tag color='green'>審核通過</Tag>
+            //data - 後端返回的狀態status 根據它做條件渲染
+            //data === 1 =>待審核
+            //data === 2 =>審核通過
+            // render: data => data === 1 ? <Tag color='warning'>待審核</Tag>:<Tag color='success'>審核通過</Tag>
+            render: data => status[data]
         },
         {
             title: '發布時間',
