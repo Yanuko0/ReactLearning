@@ -21,3 +21,13 @@ export function createArticleAPI (data) {
         data
     })
 }
+
+// 3.獲取文章列表
+
+export function getArticleListAPI (parames) {
+    return request({
+        url: '/mp/articles',
+        method: 'GET',
+        parames
+    })
+}
