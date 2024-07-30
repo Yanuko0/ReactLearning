@@ -103,7 +103,8 @@ const Publish = () => {
                 type: cover.type
             })
             // 為什麼現在寫法無法回填封面?
-            // 數據結構的問題 set方法 -> { type: 3 } 現在res.data{ cover: { type: 3 }}
+            // 數據結構的問題 
+            // 需要set方法 -> { type: 3 } 但現在res.data{ cover: { type: 3 }}
 
             // 回填圖片列表
             setImageType(cover.type)
@@ -113,7 +114,10 @@ const Publish = () => {
             }))
             
         }
+        //只有有id時才能調用此函數回填
+        if(articleId) {
         getArticleDetail()
+        }
         // 2.調用實例方法 完成回填
 
     },[articleId, form])
@@ -125,7 +129,7 @@ const Publish = () => {
                 title={
                     <Breadcrumb items={[
                         { title: <Link to={'/'}>首頁</Link> },
-                        { title: '發布文章' },
+                        { title: `${articleId ? '編輯' : '新增'}文章` },
                     ]}
                     />
                 }
