@@ -23,17 +23,17 @@ const { Option } = Select
 
 const Publish = () => {
     //獲取頻道列表
-    const [channelList, setChannelList] =useState([])
+    const [channelList, setChannelList] = useState([])
 
-    useEffect(()=>{
+    useEffect(() => {
         //1.封裝函數 在函數體內調用接口
-        const getChannelList = async() =>{
+        const getChannelList = async () => {
             const res = await getChannelAPI()
             setChannelList(res.data.channels)
         }
         //2.調用函數
         getChannelList()
-    },[])
+    }, [])
 
     //提交表單
     const onFinish = (formValue) => {
@@ -51,14 +51,21 @@ const Publish = () => {
             // 可簡寫成.
             title,
             content,
-            cover:{
-                type:0,
-                images:[]
+            cover: {
+                type: 0,
+                images: []
             },
             channel_id
         }
         // 2.調用接口提交
         createArticleAPI(reqData)
+    }
+
+    //上傳回調
+    const [imageList, setImageList] = useState([])
+    const onChange = (value) => {
+        console.log('正在上傳中', value)
+        setImageList(value.fileList)
     }
 
     return (
@@ -92,8 +99,32 @@ const Publish = () => {
                     >
                         <Select placeholder='請選擇文章頻道' style={{ width: 400 }}>
                             {/* value屬性用戶選種之後會自動收集起來作為接口的提交字段 */}
-                            {channelList.map(item=> <Option key={item.id} value={item.id}>{item.name}</Option>)}
+                            {channelList.map(item => <Option key={item.id} value={item.id}>{item.name}</Option>)}
                         </Select>
+                    </Form.Item>
+                    <Form.Item label="封面">
+                        <Form.Item name="type">
+                            <Radio.Group>
+                                <Radio value={1}>單圖</Radio>
+                                <Radio value={3}>三圖</Radio>
+                                <Radio value={0}>無圖</Radio>
+                            </Radio.Group>
+                        </Form.Item>
+                        {/*
+                            listType: 決定選擇文件框的外觀樣式
+                             showUploadList: 控制顯示上傳列表
+                        */}
+                        <Upload
+                            listType='picture-card'
+                            showUploadList
+                            action={'http://geek.itheima.net/v1_0/upload'}
+                            name='image'
+                            onChange={onChange}
+                        >
+                            <div style={{ marginTop: 8 }}>
+                                <PlusOutlined />
+                            </div>
+                        </Upload>
                     </Form.Item>
                     <Form.Item
                         label='內容'
