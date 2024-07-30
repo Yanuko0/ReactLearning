@@ -31,3 +31,12 @@ export function getArticleListAPI (parames) {
         parames
     })
 }
+
+// 刪除文章
+
+export function delArticleAPI (id) {
+    return request({
+        url: `/mp/articles/${id}`,
+        method: 'DELETE',
+    })
+}

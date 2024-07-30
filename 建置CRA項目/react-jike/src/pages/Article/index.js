@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { Card, Breadcrumb, Form, Button, Radio, DatePicker, Select } from 'antd'
+import { Card, Breadcrumb, Form, Button, Radio, DatePicker, Select, Popconfirm } from 'antd'
 // 引入漢化包 讓時間選擇器顯示的是中文
 import locale from 'antd/es/date-picker/locale/zh_CN'
 
@@ -9,10 +9,10 @@ import { EditOutlined, DeleteOutlined } from '@ant-design/icons'
 import img404 from '@/assets/error.png'
 import { useChannel } from '@/hooks/useChannel'
 import { useEffect, useState } from 'react'
-import { getArticleListAPI } from '@/apis/article'
+import { delArticleAPI, getArticleListAPI } from '@/apis/article'
 
 const { Option } = Select
-const { RangePicker} = DatePicker
+const { RangePicker } = DatePicker
 
 const Article = () => {
 
@@ -24,7 +24,7 @@ const Article = () => {
         1: <Tag color='warning'>待審核</Tag>,
         2: <Tag color='success'>審核通過</Tag>
     }
-    const columns =[
+    const columns = [
         {
             title: '封面',
             dataIndex: 'cover',
@@ -67,15 +67,23 @@ const Article = () => {
         {
             title: '操作',
             render: data => {
-                return(
+                return (
                     <Space size="middle">
-                        <Button type='primary' shape='circle' icon={<EditOutlined/>} />
-                        <Button
-                            type='primary'
-                            danger
-                            shape='circle'
-                            icon={<DeleteOutlined />}
-                        />
+                        <Button type='primary' shape='circle' icon={<EditOutlined />} />
+                        <Popconfirm
+                            title="刪除文章"
+                            description="確認要刪除當前文章嗎?"
+                            onConfirm={() => onConfirm(data)}
+                            okText="Yes"
+                            cancelText="No"
+                        >
+                            <Button
+                                type='primary'
+                                danger
+                                shape='circle'
+                                icon={<DeleteOutlined />}
+                            />
+                        </Popconfirm>
                     </Space>
                 )
             }
@@ -98,7 +106,7 @@ const Article = () => {
         }
     ]
 
-     //篩選功能
+    //篩選功能
     // 1.準備參數
     const [reqData, setReqData] = useState({
         status: '',
@@ -112,15 +120,15 @@ const Article = () => {
     //獲取文章列表
     const [list, setList] = useState([])
     const [count, setCount] = useState(0)
-    useEffect(()=>{
-        async function getList(){
-           const res = await getArticleListAPI(reqData)
-           setList(res.data.results)
-           setCount(res.data.total_count)
+    useEffect(() => {
+        async function getList() {
+            const res = await getArticleListAPI(reqData)
+            setList(res.data.results)
+            setCount(res.data.total_count)
         }
         getList()
-    },[reqData])
-   
+    }, [reqData])
+
     // 2.獲取當前篩選數據
     const onFinish = (formValue) => {
         console.log(formValue)
@@ -147,8 +155,16 @@ const Article = () => {
         })
     }
 
+    //刪除
+    const onConfirm = async (data) => {
+        console.log('刪除點擊了', data)
+        await delArticleAPI(data.id)
+        setReqData({
+            ...reqData
+        })
+    }
 
-    return(
+    return (
         <div>
             <Card
                 title={
@@ -158,38 +174,38 @@ const Article = () => {
                     ]} />
                 }
                 style={{ marginBottom: 20 }}
-                >
-                    <Form initialValues={{ status: null }} onFinish={onFinish}>
-                        <Form.Item label="狀態" name="status">
-                            <Radio.Group>
-                                <Radio value={null}>全部</Radio>
-                                <Radio value={0}>待審核</Radio>
-                                <Radio value={2}>審核通過</Radio>
-                            </Radio.Group>
-                        </Form.Item>
+            >
+                <Form initialValues={{ status: null }} onFinish={onFinish}>
+                    <Form.Item label="狀態" name="status">
+                        <Radio.Group>
+                            <Radio value={null}>全部</Radio>
+                            <Radio value={0}>待審核</Radio>
+                            <Radio value={2}>審核通過</Radio>
+                        </Radio.Group>
+                    </Form.Item>
 
-                        <Form.Item label="頻道" name="channel_id">
-                            <Select
-                                placeholder="請選擇文章頻道"
-                                defaultValue="lucy"
-                                style={{ width: 120 }}
-                            >
-                                {channelList.map(item=> <Option key={item.id} value={item.id}>{item.name}</Option>)}
-                                
-                            </Select>
-                        </Form.Item>
+                    <Form.Item label="頻道" name="channel_id">
+                        <Select
+                            placeholder="請選擇文章頻道"
+                            defaultValue="lucy"
+                            style={{ width: 120 }}
+                        >
+                            {channelList.map(item => <Option key={item.id} value={item.id}>{item.name}</Option>)}
 
-                        <Form.Item label="日期" name="date">
-                            {/* 傳入locale屬性 控制中文顯示 */}
-                            <RangePicker locale={locale}></RangePicker>
-                        </Form.Item>
+                        </Select>
+                    </Form.Item>
 
-                        <Form.Item>
-                            <Button type='primary' htmlType="submit" style={{ marginLeft: 40 }}>
-                                篩選
-                            </Button>
-                        </Form.Item>
-                    </Form>
+                    <Form.Item label="日期" name="date">
+                        {/* 傳入locale屬性 控制中文顯示 */}
+                        <RangePicker locale={locale}></RangePicker>
+                    </Form.Item>
+
+                    <Form.Item>
+                        <Button type='primary' htmlType="submit" style={{ marginLeft: 40 }}>
+                            篩選
+                        </Button>
+                    </Form.Item>
+                </Form>
             </Card>
             {/* 表格區域 */}
             <Card title={`根據篩選條件共查詢到 count 條結果:${count} `}>
@@ -197,7 +213,7 @@ const Article = () => {
                     total: count,
                     pageSize: reqData.per_page,
                     onChange: onPageChange
-                }}/>
+                }} />
             </Card>
         </div>
     )
