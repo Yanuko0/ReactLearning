@@ -123,9 +123,13 @@ const Article = () => {
     const [count, setCount] = useState(0)
     useEffect(() => {
         async function getList() {
+            try {
             const res = await getArticleListAPI(reqData)
             setList(res.data.results)
             setCount(res.data.total_count)
+            } catch (error) {
+                console.log(error)
+            }
         }
         getList()
     }, [reqData])
@@ -138,8 +142,8 @@ const Article = () => {
             ...reqData,
             channel_id: formValue.channel_id,
             status: formValue.status,
-            begin_pubdate: formValue.date[0].format('YYYY-MM-DD'),
-            end_pubdate: formValue.date[1].format('YYYY-MM-DD'),
+            begin_pubdate: formValue.date[0]?.format('YYYY-MM-DD'),
+            end_pubdate: formValue.date[1]?.format('YYYY-MM-DD'),
         })
         // 4.重新拉取文章列表  + 渲染table邏輯 重複的 - 複用
         // 在上面補充reqData參數
