@@ -90,7 +90,28 @@ const Publish = () => {
         // 1.通過id獲取數據
         async function getArticleDetail(){
             const res = await getArticleById(articleId)
-            form.setFieldsValue(res.data)
+            const data = res.data
+            const { cover } = data
+            form.setFieldsValue({
+                // ...res.data,
+                // type: res.data.cover.type
+                // 先優化成 res被data取代
+                // ...data,
+                // type :data.cover.type
+                // 因為data.cover用了三次用解構再度優化
+                ...data,
+                type: cover.type
+            })
+            // 為什麼現在寫法無法回填封面?
+            // 數據結構的問題 set方法 -> { type: 3 } 現在res.data{ cover: { type: 3 }}
+
+            // 回填圖片列表
+            setImageType(cover.type)
+            // 顯示圖片({url:url})
+            setImageList(cover.images.map(url=>{
+                return { url }
+            }))
+            
         }
         getArticleDetail()
         // 2.調用實例方法 完成回填
@@ -153,6 +174,7 @@ const Publish = () => {
                             name='image'
                             onChange={onChange}
                             maxCount={imageType}
+                            fileList={imageList}
                         >
                             <div style={{ marginTop: 8 }}>
                                 <PlusOutlined />
