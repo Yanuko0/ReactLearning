@@ -137,6 +137,15 @@ const Article = () => {
         //reqData依賴項發生變化  重新執行 副作用函數
     }
 
+    //分頁
+    const onPageChange = (page) => {
+        console.log(page)
+        //修改參數依賴項 引發數據重新獲取列表渲染
+        setReqData({
+            ...reqData,
+            page
+        })
+    }
 
 
     return(
@@ -184,7 +193,11 @@ const Article = () => {
             </Card>
             {/* 表格區域 */}
             <Card title={`根據篩選條件共查詢到 count 條結果:${count} `}>
-                <Table rowKey="id" columns={columns} dataSource={list} />
+                <Table rowKey="id" columns={columns} dataSource={list} pagination={{
+                    total: count,
+                    pageSize: reqData.per_page,
+                    onChange: onPageChange
+                }}/>
             </Card>
         </div>
     )
