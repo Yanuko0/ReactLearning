@@ -22,6 +22,16 @@ export function createArticleAPI (data) {
     })
 }
 
+//更新文章 
+
+export function updateArticleAPI (data) {
+    return request({
+        url: `/mp/articles/${data.id}?draft=false`,
+        method: 'PUT',
+        data
+    })
+}
+
 // 3.獲取文章列表
 
 export function getArticleListAPI (parames) {
@@ -48,3 +58,4 @@ export function getArticleById (id) {
         url: `/mp/articles/${id}`
     })
 }
+

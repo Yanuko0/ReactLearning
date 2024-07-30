@@ -17,7 +17,7 @@ import './index.scss'
 import ReactQuill from "react-quill"
 import 'react-quill/dist/quill.snow.css'
 import { useEffect, useState } from 'react'
-import { createArticleAPI, getArticleById, getChannelAPI } from '@/apis/article'
+import { createArticleAPI, getArticleById, getChannelAPI, updateArticleAPI } from '@/apis/article'
 import { type } from '@testing-library/user-event/dist/type'
 import { useChannel } from '@/hooks/useChannel'
 
@@ -58,12 +58,27 @@ const Publish = () => {
             content,
             cover: {
                 type: imageType, //當前的封面模式
-                images: imageList.map(item=>item.response.data.url) //圖片列表
+                //這裡的url處理邏輯只是在新增時的邏輯
+                //編輯時也需要做處理
+                images: imageList.map(item=> 
+                    // item.response.data.url
+                    {if(item.response){
+                        return item.response.data.url
+                       } else {
+                        return item.url
+                       }}
+                ) //圖片列表
             },
             channel_id
         }
         // 2.調用接口提交
+        //處理調用不同的接口 新增 - 新增接口 編輯狀態-更新接口 id
+        if(articleId) {
+            //更新街口
+            updateArticleAPI({...reqData, id: articleId})
+        } else {
         createArticleAPI(reqData)
+        }
     }
 
     //上傳回調
