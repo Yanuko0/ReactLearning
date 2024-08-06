@@ -5,8 +5,6 @@
 // npm i 
 // npm run dev
 
-const { useState, useRef, useEffect } = require("react");
-
 //-------------------------------------------------------------------------
 
 // useState與TS
