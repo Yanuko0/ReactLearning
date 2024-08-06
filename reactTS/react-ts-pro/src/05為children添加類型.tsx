@@ -1,5 +1,4 @@
 // react + ts
-import { useState } from "react"
 
 type Props = {
   className: string
