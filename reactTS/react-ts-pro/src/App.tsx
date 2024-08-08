@@ -1,32 +1,56 @@
 // react + ts
 
-import { useEffect, useRef } from "react"
+import { DateRangePicker } from 'rsuite';
+import { useForm, Controller, SubmitHandler } from 'react-hook-form';
+import 'rsuite/DateRangePicker/styles/index.css';
+import dayjs from 'dayjs'
 
-//1.獲取dom
+interface FormData {
+  dateRange: [Date | null, Date | null];
+  start_date?: string;
+  end_date?: string;
+}
 
-//2.穩定引用的存儲器(定時器管理)
+const App: React.FC = () => {
 
-function App() {
-    const domRef = useRef<HTMLInputElement>(null)
+  const { handleSubmit, formState: { errors }, control } = useForm<FormData>();
 
-    const timerId = useRef<number | undefined>(undefined)
 
-    useEffect(() => {
-        //可選鏈 前面不為空值( null / undefind) 執行點運算
-        //類型守衛 防止出現空值點運算錯誤
-        domRef.current?.focus()
+  const onSubmit: SubmitHandler<FormData> = async (formData) => {
+    if (formData.dateRange) {
+      formData.start_date = formData.dateRange[0] ? dayjs(formData.dateRange[0]).format("YYYY/MM/DD") : undefined;
+      formData.end_date = formData.dateRange[0] ? dayjs(formData.dateRange[1]).format("YYYY/MM/DD") : undefined;
+    }
+    console.log(formData.start_date)
+    console.log(formData.end_date)
+  }
 
-        timerId.current = setInterval(() => {
-            console.log('123')
-        }, 1000)
-
-        return () => clearInterval(timerId.current)
-    }, [])
-    
 
   return (
     <>
-       <input ref={domRef}/>
+      <form className='WorkOrderListItems' onSubmit={handleSubmit(onSubmit)}>
+        <div className='dateBox'>
+          <label htmlFor="">下料日期:</label>
+          <Controller
+            control={control}
+            name="dateRange"
+            rules={{ required: '日期為必填' }}
+            render={({ field: { onChange, onBlur } }) => (
+              <DateRangePicker
+                className='timeBox'
+                size='md'
+                showOneCalendar
+                onChange={onChange}
+                style={{ width: 323 }}
+                onBlur={onBlur}
+
+              />
+            )}
+          />
+          {errors.dateRange && <span className='errorsmsg'>日期為必填</span>}
+        </div>
+        <button type='submit'>按鈕</button>
+      </form>
     </>
   )
 }
